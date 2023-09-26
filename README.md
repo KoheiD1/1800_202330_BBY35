@@ -6,7 +6,7 @@ This browser based web application to ...
 
 ## 2. Names of Contributors
 List team members and/or short bio's here...
-* ...
+* Jiahong Xu
 * ...
 * ...
 
@@ -55,8 +55,5 @@ It has the following subfolders and files:
     /blah.css                #
 
 
-##Self Introduction of the team
-My name is Jiahong Xu
-```
 
 
