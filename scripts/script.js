@@ -1,39 +1,36 @@
-function sayHello() {
-    
-}
-//sayHello();
 
-var map;
+var map = L.map('map').setView([49.249999, -123.0], 16);
 
-function loadMap() {
-            map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-            credentials: 'AkuSFqo_vDqV_Dju7LtwW35sQF_W79IH2OIFpZQL9uVY4kxhW6ZAa-v2EA5mJtUG',
-            center: new Microsoft.Maps.Location(49.2489346, -123.0001168), // Default map center (Seattle coordinates)
-            zoom: 15 // Default zoom level
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+var parkingData 
+
+var parkingLayer = L.geoJSON(parkingData, {
+    onEachFeature: function (feature, layer) {
+        var popupContent = feature.properties.name;
+
+        // Attach a click event handler to show the popup on marker click
+        layer.on('click', function () {
+            layer.bindPopup(popupContent).openPopup();
         });
     }
+});
 
-    getUserLocation();
-        
+parkingLayer.addTo(map);
 
-function getUserLocation() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
+var surroundingParkingLots = [
+    { lat: 49.25104, lng: -122.99841, name: 'Parking Lot F' },
+    { lat: 49.24552, lng: -123.00284, name: 'Parking Lot G' },
+    { lat: 49.2540, lng: -123.0032, name: 'Parking Lot H' },
+    { lat: 49.2539, lng: -122.9992, name: 'Parking Lot I' },
+    { lat: 49.2526, lng: -123.0038, name: 'Parking Lot J' }  // Added Parking Lot E
+];
 
-                    // Create a pushpin to mark the user's location
-                    var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latitude, longitude), {
-                        title: 'Your Location',
-                    });
-
-                    // Add the pushpin to the map
-                    map.entities.push(pushpin);
-
-                    // Center the map on the user's location
-                    map.setView({ center: new Microsoft.Maps.Location(latitude, longitude), zoom: 15 });
-                });
-            } else {
-                alert("Geolocation is not supported by your browser.");
-            }
-        }
+surroundingParkingLots.forEach(function (parkingLot) {
+    var marker = L.marker([parkingLot.lat, parkingLot.lng]);
+    marker.bindPopup(parkingLot.name);
+    marker.addTo(map);
+});
