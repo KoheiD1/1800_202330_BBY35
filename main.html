@@ -26,15 +26,26 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle static-top">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="https://pngimg.com/d/parking_PNG6.png" alt="parking" height="36">
+      <img src="https://pngimg.com/d/parking_PNG81.png" alt="parking" height="70">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
      <div>
       <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="input-group">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>    
+</div>
+<div class="btn-group ml-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter
+    </button>
+    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+        <a class="dropdown-item" href="#">How busy</a>
+        <a class="dropdown-item" href="#">How Expensive</a>
+    </div>
+</div>
       </form>
       <h1 class="display-4 fw-bold">Welcome to Easy Parking</h1>
      </div>
