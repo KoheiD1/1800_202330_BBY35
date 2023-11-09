@@ -7,7 +7,7 @@ username
 password
 email
 Country
-fav —— array
+fav —— array （later）
 
 
 
@@ -17,7 +17,6 @@ Parking Lots Collection:
 name(eg.student parking lot L)
 location (mapping)
 location (description)
-capacity (-cannot get this data)
 average_rate(free $ $$ $$$) (- how to get this data?)
 status (e.g., full, half-full, empty)
 lastupdate

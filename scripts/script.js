@@ -21,17 +21,31 @@ var parkingLayer = L.geoJSON(surroundingParkingLots, {
 
 parkingLayer.addTo(map);
 
+/*need to read data from database instead of hard code.
 var surroundingParkingLots = [
     { lat: 49.25104, lng: -122.99841, name: 'Parking Lot F' , status:''},
     { lat: 49.24552, lng: -123.00284, name: 'Parking Lot G', status:'' },
     { lat: 49.2540, lng: -123.0032, name: 'Parking Lot H', status:'' },
 ];
+*/
+const parkingLotsRef = db.collection('parkingLots');
 
-surroundingParkingLots.forEach(function (parkingLot) {
-    var marker = L.marker([parkingLot.lat, parkingLot.lng]);
-    marker.bindPopup(parkingLot.name);
-    marker.addTo(map);
-});
+parkingLotsRef.get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  })
+  .catch((error) => {
+    console.log('Error getting documents: ', error);
+  });
+
+
+//surroundingParkingLots.forEach(function (parkingLot) {
+    //var marker = L.marker([parkingLot.lat, parkingLot.lng]);
+    //marker.bindPopup(parkingLot.name);
+    //marker.addTo(map);
+//});
 
 
   // Get the elements by their ID

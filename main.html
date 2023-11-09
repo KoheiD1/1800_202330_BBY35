@@ -16,6 +16,15 @@
 </script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 
     <!-- Link to styles of your own -->
     <!-- <link rel="stylesheet" href="./styles/style.css"> -->
@@ -69,6 +78,7 @@
 <!----Navbar---->
 
 
+
 <div id="popup-window">
   <h1>Have a safe drive and Let us know how full teh parking lot is.</h1>
   <button id="fullbtn">Full</button>
@@ -84,12 +94,13 @@
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
-    
+
 
     <!-- Link to scripts of your own -->
-  
+
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.13.1/build/ol.js"></script>
-     <script src="./scripts/script.js"></script> 
+     <script src="./scripts/firebaseAPI_TEAM99.js"></script>
+     <script src="./scripts/main.js"></script>
 </body>
 
 </html>
