@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const parkingLotsRef = db.collection('parkingLots');
 
 // Fetch parking lot data from Firestore
-// ... (previous code)
+
 
 // Fetch parking lot data from Firestore
 parkingLotsRef.get()
@@ -40,11 +40,12 @@ parkingLotsRef.get()
         })
       });
 
-      var popupContent = parkingLotInfo.status;
+      var popupParkInfo = `<b>${parkingLotInfo.name}</b><br>Status: ${parkingLotInfo.status}<br>Price: ${parkingLotInfo.price}`;
 
       // Attach a click event handler to show the popup on marker click
       marker.on('click', function () {
-        marker.bindPopup(popupContent).openPopup();
+        marker.bindPopup(popupParkInfo).openPopup();
+        popupWindow.style.display = "none";
       });
 
       marker.addTo(map); // Add marker to the map
@@ -55,21 +56,20 @@ parkingLotsRef.get()
     console.error('Error fetching parking lot data:', error);
   });
 
-// ... (remaining code)
-
 
 // Get the elements by their ID
 var popupLink = document.getElementById("popup-link");
-var popupWindow = document.getElementById("popup-window");
+var userReport = document.getElementById("user-Report");
 var closeButton = document.getElementById("close-button");
 
 // Show the pop-up window when the link is clicked
 popupLink.addEventListener("click", function (event) {
-  event.preventDefault();
-  popupWindow.style.display = "block";
+    event.preventDefault();
+    userReport.style.display = "block";
 });
 
 // Hide the pop-up window when the close button is clicked
 closeButton.addEventListener("click", function () {
-  popupWindow.style.display = "none";
+  userReport.style.display = "none";
 });
+
