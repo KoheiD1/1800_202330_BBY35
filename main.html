@@ -78,12 +78,16 @@
 <!----Navbar---->
 
 
-
+<!----because user can only choose one status per time, so it should be a radio button---->
 <div id="user-report">
   <h1>Have a safe drive and Let us know how full teh parking lot is.</h1>
-  <button id="fullbtn">Full</button>
-  <button id="halffull">Half</button>
-  <button id="emptybtn">Empty</button>
+  <input type="radio" value="full" name="status">
+  <label>full</label>
+  <input type="radio" value="half-full" name="status">
+  <label>half-full</label>
+  <input type="radio" value="empty" name="status">
+  <label>empty</label>
+  <button id="save-button">Confirm</button>
   <button id="close-button">Close</button>
 </div>
 
