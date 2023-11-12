@@ -36,44 +36,70 @@ parkingLotsRef.get()
 
     // Create markers and add them to the map after data is fetched
     surroundingParkingLots.forEach((parkingLotInfo) => {
+      var markerColor;
+    
+      switch (parkingLotInfo.status.toLowerCase()) {
+        case 'empty':
+          markerColor = 'green';
+          break;
+        case 'half-full':
+          markerColor = 'orange';
+          break;
+        case 'full':
+          markerColor = 'red';
+          break;
+        default:
+          markerColor = 'gray'; // Set a default color for unknown statuses
+      }
+    
       var marker = L.marker([parkingLotInfo.lat, parkingLotInfo.lng], {
         icon: L.icon({
-          iconUrl: '/images/parking-location.png',
-        })
+          iconUrl: `./images/parking-location-${markerColor}.png`,
+          iconSize: [25, 25],
+        }),
       });
-
-      var popupParkInfo = `<b>${parkingLotInfo.name}</b><br>Status: ${parkingLotInfo.status}<br>Price: ${parkingLotInfo.price}`;
-
+    
+      var popupParkInfo = `<div id="user-report">
+        <h1>${parkingLotInfo.name}</h1>
+        <p>Have a safe drive and let us know how full the parking lot is.</p>
+        <input type="radio" value="full" name="status">
+        <label>full</label>
+        <input type="radio" value="half-full" name="status">
+        <label>half-full</label>
+        <input type="radio" value="empty" name="status">
+        <label>empty</label>
+        <button id="save-button" onclick="updateStatus('${parkingLotInfo.parkID}')">Confirm</button>
+        <button id="close-button">Close</button>
+      </div>`;
+    
       // Attach a click event handler to show the popup on marker click
       marker.on('click', function () {
-        var parkingLotID = parkingLotInfo.parkID;
-        localStorage.setItem('parkingLotID', parkingLotID);//set local storage
-        marker.bindPopup(popupParkInfo).openPopup();
-        popupWindow.style.display = "none";
+        if (!marker.isPopupOpen()) {
+          marker.bindPopup(popupParkInfo).openPopup();
+          bindPopupListeners(marker, parkingLotInfo);
+        }
       });
-
-      marker.addTo(map); // Add marker to the map
+    
+      marker.addTo(map);
     });
-
-  })
-  .catch((error) => {
-    console.error('Error fetching parking lot data:', error);
+    
+    function bindPopupListeners(marker, parkingLotInfo) {
+      var saveButton = document.getElementById('save-button');
+      var closeButton = document.getElementById('close-button');
+    
+      saveButton.addEventListener('click', function () {
+        console.log('Save button clicked for parking lot:', parkingLotInfo.parkID);
+        updateStatus(parkingLotInfo.parkID);
+        map.closePopup();
+      });
+    
+      closeButton.addEventListener('click', function () {
+        map.closePopup();
+      });
+    }
+    
+    function updateStatus(parkingLotID) {
+      console.log('Updating status for parking lot:', parkingLotID);
+      // Implement the logic to update the status in Firestore
+    }
   });
-
-
-// Get the elements by their ID
-var popupLink = document.getElementById("popup-link");
-var userReport = document.getElementById("user-Report");
-var closeButton = document.getElementById("close-button");
-
-// Show the pop-up window when the link is clicked
-popupLink.addEventListener("click", function (event) {
-    event.preventDefault();
-    userReport.style.display = "block";
-});
-
-// Hide the pop-up window when the close button is clicked
-closeButton.addEventListener("click", function () {
-  userReport.style.display = "none";
-});
-
