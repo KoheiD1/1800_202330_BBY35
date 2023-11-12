@@ -19,7 +19,9 @@ parkingLotsRef.get()
 
     snapshot.forEach((doc) => {
       var data = doc.data();
+      var ID = doc.id;
       var parkingLotInfo = {
+        parkID:ID,
         lat: data.lat,
         lng: data.lng,
         name: data.name,
@@ -44,6 +46,8 @@ parkingLotsRef.get()
 
       // Attach a click event handler to show the popup on marker click
       marker.on('click', function () {
+        var parkingLotID = parkingLotInfo.parkID;
+        localStorage.setItem('parkingLotID', parkingLotID);//set local storage
         marker.bindPopup(popupParkInfo).openPopup();
         popupWindow.style.display = "none";
       });
