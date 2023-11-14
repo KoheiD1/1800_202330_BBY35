@@ -62,6 +62,8 @@ parkingLotsRef.get()
       var popupParkInfo = `<div id="user-report">
         <h1>${parkingLotInfo.name}</h1>
         <p>Have a safe drive and let us know how full the parking lot is.</p>
+        <p>${parkingLotInfo.status}</p>
+        <p>${parkingLotInfo.price}</p>
         <input type="radio" value="full" name="status">
         <label>full</label>
         <input type="radio" value="half-full" name="status">
