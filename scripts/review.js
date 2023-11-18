@@ -33,6 +33,6 @@ function updateStatus() {
         });
     } else {
         console.log("No user is signed in");
-        window.location.href = 'review.html';
+        window.location.href = 'thanks.html';
     }
 }
