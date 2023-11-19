@@ -74,6 +74,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
       <p>Have a safe drive and let us know how full the parking lot is.</p>
       <p>${parkingLotInfo.status}</p>
       <p>${parkingLotInfo.price}</p>
+      <a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" class="btn btn-outline-secondary" role="button" aria-pressed="true" target = "_blank">Navigate</a>
       <input type="radio" value="full" name="status">
       <label>full</label>
       <input type="radio" value="half-full" name="status">
