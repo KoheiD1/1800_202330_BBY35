@@ -1,1 +1,52 @@
 
+
+.navbar{
+    z-index: 1; /* Set a higher z-index to ensure it's displayed above the map */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#map {
+  height: 675px;
+  z-index: 1; /* Set the map above other elements */
+  width: 100%;
+
+}
+.container{
+margin: 0;
+position: relative;
+}
+#invisible{
+  display: none;
+}
+
+#sidebar {
+  position: absolute;
+  top: 0px;
+  right: 0; /* Adjust the positioning as needed */
+  width: 30%; /* Adjust the width as needed */
+  height: 675px; /* Adjust for the menu bar height */
+  background-color: #fff;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  z-index: 2; /* Set the parking info container above the map */
+  padding: 10px;
+}
+
+#fixedheading {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+@media only screen and (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    float: none;
+  }
+}
+

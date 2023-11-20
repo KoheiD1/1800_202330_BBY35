@@ -1,5 +1,6 @@
 // Create the Leaflet map
 var map = L.map('map').setView([49.249999, -123.0], 16);
+var sidebar = document.getElementById('sidebar');
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -21,7 +22,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
   var surroundingParkingLots = [];
 
   // This is grabbing a snapshot of the parkinglot info of the certain parking lots
-  
+
   snapshot.forEach((doc) => {
     var data = doc.data();
     var ID = doc.id;
@@ -68,42 +69,37 @@ parkingLotsRef.onSnapshot((snapshot) => {
       }),
     });
 
-    // The html code that is instersted into the popup when the popup is opened
-    var popupParkInfo = `<div id="user-report">
-      <h1>${parkingLotInfo.name}</h1>
-      <p>Have a safe drive and let us know how full the parking lot is.</p>
-      <p>${parkingLotInfo.status}</p>
-      <p>${parkingLotInfo.price}</p>
-      <a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" class="btn btn-outline-secondary" role="button" aria-pressed="true" target = "_blank">Navigate</a>
-      <input type="radio" value="full" name="status">
-      <label>full</label>
-      <input type="radio" value="half-full" name="status">
-      <label>half-full</label>
-      <input type="radio" value="empty" name="status">
-      <label>empty</label>
-      <button id="save-button">Confirm</button>
-      <button id="close-button">Close</button>
-    </div>`;
 
-    // Attach a click event handler to show the popup on marker click
-    marker.on('click', function () {
-      if (!marker.isPopupOpen()) {
-        marker.bindPopup(popupParkInfo).openPopup();
-        bindPopupListeners(marker, parkingLotInfo);
-      }
-    });
+   marker.on('click',function(){
+    sidebar.innerHTML=`
+    <h1>${parkingLotInfo.name}</h1>
+    <p>Have a safe drive and let us know how full the parking lot is.</p>
+    <p>${parkingLotInfo.status}</p>
+    <p>${parkingLotInfo.price}</p>
+    <a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" class="btn btn-outline-secondary" role="button" aria-pressed="true" target = "_blank">Navigate</a>
+    <input type="radio" value="full" name="status">
+    <label>full</label>
+    <input type="radio" value="half-full" name="status">
+    <label>half-full</label>
+    <input type="radio" value="empty" name="status">
+    <label>empty</label>
+    <button id="save-button">Confirm</button>
+    <button id="close-button">Close</button>
+ `;
+  document.getElementById('invisible').style.display = 'block';
+   })
 
     marker.addTo(map);
   }
 
-  // This is the code that sets the markers to the actually parking 
+  // This is the code that sets the markers to the actually parking
   //  information alos creats savebutton and closeButtons for them
   function bindPopupListeners(marker, parkingLotInfo) {
     var saveButton = document.getElementById('save-button');
     var closeButton = document.getElementById('close-button');
 
     //This is the code for the save button
-    // I made it so that the status of the parking lot is updated here after 
+    // I made it so that the status of the parking lot is updated here after
     // refrencing the parkingLotInfo.parkID
     saveButton.addEventListener('click', function () {
       console.log('Save button clicked for parking lot:', parkingLotInfo.parkID);
@@ -137,3 +133,5 @@ parkingLotsRef.onSnapshot((snapshot) => {
     });
   }
 });
+
+
