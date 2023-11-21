@@ -88,6 +88,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
     <button id="close-button">Close</button>
  `;
   document.getElementById('invisible').style.display = 'block';
+  bindPopupListeners(marker, parkingLotInfo);
    })
 
     marker.addTo(map);
@@ -110,7 +111,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
 
     // This is the code for the closebutton if clicke it just closes the popup
     closeButton.addEventListener('click', function () {
-      map.closePopup();
+      document.getElementById('invisible').style.display = 'none';
     });
   }
 
