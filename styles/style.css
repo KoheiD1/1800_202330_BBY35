@@ -17,9 +17,10 @@ body {
   width: 100%;
 
 }
-.container{
+#container{
 margin: 0;
 position: relative;
+width: 100vw;
 }
 #invisible{
   display: none;

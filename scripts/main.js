@@ -88,6 +88,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
     <button id="close-button">Close</button>
  `;
   document.getElementById('invisible').style.display = 'block';
+
    })
 
     marker.addTo(map);
