@@ -78,6 +78,8 @@ parkingLotsRef.onSnapshot((snapshot) => {
     <p>${parkingLotInfo.price}</p>
     <a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" class="btn btn-outline-secondary" role="button" aria-pressed="true" target = "_blank">Navigate</a>
     <br>
+    <button id = "button-survey" class="btn btn-outline-secondary" role="button" aria-pressed="true">Review</button>
+    <div id = "survey">
     <input type="radio" value="full" name="status">
     <label>full</label>
     <input type="radio" value="half-full" name="status">
@@ -86,7 +88,11 @@ parkingLotsRef.onSnapshot((snapshot) => {
     <label>empty</label>
     <button id="save-button">Confirm</button>
     <button id="close-button">Close</button>
+    <br>
+    <div>
  `;
+
+ 
   document.getElementById('invisible').style.display = 'block';
   bindPopupListeners(marker, parkingLotInfo);
    })
@@ -94,11 +100,13 @@ parkingLotsRef.onSnapshot((snapshot) => {
     marker.addTo(map);
   }
 
+
   // This is the code that sets the markers to the actually parking
   //  information alos creats savebutton and closeButtons for them
   function bindPopupListeners(marker, parkingLotInfo) {
     var saveButton = document.getElementById('save-button');
     var closeButton = document.getElementById('close-button');
+    var surveybutton = document.getElementById('button-survey')
 
     //This is the code for the save button
     // I made it so that the status of the parking lot is updated here after
@@ -106,13 +114,18 @@ parkingLotsRef.onSnapshot((snapshot) => {
     saveButton.addEventListener('click', function () {
       console.log('Save button clicked for parking lot:', parkingLotInfo.parkID);
       updateStatus(parkingLotInfo.parkID);
-      map.closePopup();
+      document.getElementById('invisible').style.display = 'none';
     });
 
     // This is the code for the closebutton if clicke it just closes the popup
     closeButton.addEventListener('click', function () {
       document.getElementById('invisible').style.display = 'none';
     });
+
+    surveybutton.addEventListener('click',function(){
+      console.log('review button has been clicked')
+      document.getElementById('survey').style.display ='block'
+    })
   }
 
   function updateStatus(parkingLotID) {

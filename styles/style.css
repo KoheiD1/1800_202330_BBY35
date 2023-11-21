@@ -1,7 +1,7 @@
 
 
 .navbar{
-    z-index: 1; /* Set a higher z-index to ensure it's displayed above the map */
+    z-index: 2; /* Set a higher z-index to ensure it's displayed above the map */
 }
 
 body {
@@ -12,9 +12,10 @@ body {
 }
 
 #map {
-  height: 675px;
+  height: 623px;
   z-index: 1; /* Set the map above other elements */
   width: 100%;
+  object-fit: cover;
 
 }
 #container{
@@ -22,6 +23,11 @@ margin: 0;
 position: relative;
 width: 100vw;
 }
+
+#survey{
+display: none;
+}
+
 #invisible{
   display: none;
 }
