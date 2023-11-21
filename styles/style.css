@@ -9,6 +9,7 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 #map {
@@ -22,6 +23,7 @@ body {
 margin: 0;
 position: relative;
 width: 100vw;
+overflow-y: hidden;
 }
 
 #survey{
