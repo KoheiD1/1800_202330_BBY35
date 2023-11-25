@@ -28,6 +28,51 @@ overflow-y: hidden;
 
 #survey{
 display: none;
+
+}
+#survey {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#survey div {
+  margin-bottom: 10px;
+  padding-left: 13%;
+}
+
+#survey input[type="radio"] {
+  display: none;
+}
+
+#survey label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333; /* Text color */
+}
+
+#survey label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border: 2px solid #2196F3; /* Blue color */
+  border-radius: 50%;
+  background-color: white;
+}
+
+#survey input[type="radio"]:checked + label:before {
+  background-color: #2196F3;
+}
+
+#save-button{
+  margin-left: 13%;
 }
 
 #invisible{
@@ -50,6 +95,101 @@ display: none;
 #fixedheading {
   padding: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+#popup h1{
+  display: flex;
+  justify-content: center;
+  text-transform: capitalize;
+}
+
+#statusbox{
+  display: inline-block;
+  text-align: center;
+  padding-left: 15%;
+}
+
+#statusbox1{
+  vertical-align:top;
+  text-align: right;
+  display:inline-block;
+  padding-left: 45%;
+}
+
+#navigate {
+  text-align: center;
+  margin-top: 20px; /* Adjust the margin as needed */
+  
+}
+
+#navigate a{
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+}
+
+#navigate a:hover{
+  color: white;
+}
+
+.navigate-button {
+  background-color: #3b9ee900; /* Green background color */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px; /* Add rounded corners for a nicer look */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+
+.navigate-button:hover {
+  background-color: rgb(131, 131, 131); /* Darker green color on hover */
+  text-decoration: none; /* Remove text decoration on hover */
+   /* Maintain text color on hover */
+  
+}
+
+
+
+#parking{
+  text-align: center;
+}
+
+#button-survey {
+  color: black;
+  font-size: 24px; /* Adjust the font size as needed */
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+#button-survey:hover {
+  background-color: rgb(131, 131, 131);
+  color: white;
+}
+
+
+#x-close{
+  text-align: right;
+  font-size: 25px;
+}
+
+#x-close button{
+  background-color: white;
+  border:none
+}
+
+#x-close button:hover{
+  background-color: rgb(134, 134, 134);
+  border-radius: 5px;
+  color: white;
 }
 
 @media only screen and (max-width: 768px) {

@@ -72,24 +72,47 @@ parkingLotsRef.onSnapshot((snapshot) => {
 
    marker.on('click',function(){
     sidebar.innerHTML=`
+    <div id = "popup">
+    <div id = "x-close">
+    <button id="close-button">&#x2715;</button>
+    </div>
     <h1>${parkingLotInfo.name}</h1>
     <p>Have a safe drive and let us know how full the parking lot is.</p>
+    <br>
+    <br>
+    <div id = "statusbox">
     <p>${parkingLotInfo.status}</p>
+    </div>
+    <div id = "statusbox1">
     <p>${parkingLotInfo.price}</p>
-    <a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" class="btn btn-outline-secondary" role="button" aria-pressed="true" target = "_blank">Navigate</a>
+    </div>
     <br>
-    <button id = "button-survey" class="btn btn-outline-secondary" role="button" aria-pressed="true">Review</button>
-    <div id = "survey">
-    <input type="radio" value="full" name="status">
-    <label>full</label>
-    <input type="radio" value="half-full" name="status">
-    <label>half-full</label>
-    <input type="radio" value="empty" name="status">
-    <label>empty</label>
-    <button id="save-button">Confirm</button>
-    <button id="close-button">Close</button>
     <br>
+    <div id="navigate">
+    <button class="navigate-button"><a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" target="_blank">Get Direction</a></button>
+    </div>
+    <br>
+    <div id="parking">
+    <button id = "button-survey" class="btn btn-outline-secondary" role="button" aria-pressed="true">Update ParkingLot Status</button>
+    </div>
+    <div id="survey">
     <div>
+        <input type="radio" id="radio-full" value="full" name="status">
+        <label for="radio-full">Full</label>
+    </div>
+    <div>
+        <input type="radio" id="radio-half-full" value="half-full" name="status">
+        <label for="radio-half-full">Half-Full</label>
+    </div>
+    <div>
+        <input type="radio" id="radio-empty" value="empty" name="status">
+        <label for="radio-empty">Empty</label>
+    </div>
+
+    <br>
+    <button type="button" class="btn btn-lg btn-primary" id="save-button">Confirm</button>
+</div>
+    </div>
  `;
 
  
