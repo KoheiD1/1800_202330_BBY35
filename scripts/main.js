@@ -71,22 +71,38 @@ parkingLotsRef.onSnapshot((snapshot) => {
 
 
    marker.on('click',function(){
+    var parking = parkingLotInfo.status.charAt(0).toUpperCase() + parkingLotInfo.status.slice(1);
+    var statusIcon;
+    switch (parkingLotInfo.status.toLowerCase()) {
+      case 'empty':
+        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span>";
+        break;
+      case 'half-full':
+        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
+        break;
+      case 'full':
+        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
+        break;
+      default:
+        markerColor = 'gray'; 
+    }
+
     sidebar.innerHTML=`
     <div id = "popup">
+    <div id = "headerpop">
     <div id = "x-close">
     <button id="close-button">&#x2715;</button>
     </div>
     <h1>${parkingLotInfo.name}</h1>
-    <p>Have a safe drive and let us know how full the parking lot is.</p>
+    </div>
     <br>
     <br>
     <div id = "statusbox">
-    <p>${parkingLotInfo.status}</p>
+    <p>${statusIcon}</p>
     </div>
     <div id = "statusbox1">
-    <p>${parkingLotInfo.price}</p>
+    <p>${parkingLotInfo.price}$</p>
     </div>
-    <br>
     <br>
     <div id="navigate">
     <button class="navigate-button"><a href="https://www.google.com/maps?daddr=${parkingLotInfo.lat},${parkingLotInfo.lng}" target="_blank">Get Direction</a></button>
