@@ -3,8 +3,8 @@ var map = L.map('map').setView([49.249999, -123.0], 16);
 var sidebar = document.getElementById('sidebar');
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 19,
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
 // Reference Firestore collection
@@ -32,7 +32,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
       lng: data.lng,
       name: data.name,
       status: data.status,
-      status_update: data.last_update,
+      status_update: data.status_update,
       price: data.price
     };
 
@@ -42,54 +42,86 @@ parkingLotsRef.onSnapshot((snapshot) => {
     createMarkerAndPopup(parkingLotInfo);
   });
 
+
+
   // Function that makes the markers diffrent color depending on there
   // Parking lot status
+
+
   function createMarkerAndPopup(parkingLotInfo) {
     var markerColor;
-
     switch (parkingLotInfo.status.toLowerCase()) {
       case 'empty':
         markerColor = 'green';
         break;
       case 'half-full':
-        markerColor = 'orange';
+        markerColor = 'green';
         break;
       case 'full':
         markerColor = 'red';
         break;
       default:
-        markerColor = 'gray'; // Set a default color for unknown statuses
+        markerColor = 'green'; // Set a default color for unknown statuses
     }
 
     // This is the actual marker.
     var marker = L.marker([parkingLotInfo.lat, parkingLotInfo.lng], {
       icon: L.icon({
         iconUrl: `./images/parking-location-${markerColor}.png`,
-        iconSize: [25, 25],
+        iconSize: [40, 56],
       }),
     });
 
-  //This is the code for determining how many car icons should be displayed depending
-  //On the status of the parkinglot.
-   marker.on('click',function(){
-    var parking = parkingLotInfo.status.charAt(0).toUpperCase() + parkingLotInfo.status.slice(1);
-    var statusIcon;
-    switch (parkingLotInfo.status.toLowerCase()) {
-      case 'empty':
-        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span>";
-        break;
-      case 'half-full':
-        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
-        break;
-      case 'full':
-        statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
-        break;
-      default:
-        markerColor = 'gray'; 
-    }
+    //This is the code for determining how many car icons should be displayed depending
+    //On the status of the parkinglot.
 
-    //This is the HTML for the popupSideBar
-    sidebar.innerHTML=`
+    marker.on('click', function () {
+      marker.setIcon(L.icon({
+        iconUrl: `./images/parking-location-clicked.png`,
+        iconSize: [40, 56],
+      }));
+
+
+
+      var parking = parkingLotInfo.status.charAt(0).toUpperCase() + parkingLotInfo.status.slice(1);
+      var statusIcon;
+      switch (parkingLotInfo.status.toLowerCase()) {
+        case 'empty':
+          statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span>";
+          break;
+        case 'half-full':
+          statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
+          break;
+        case 'full':
+          statusIcon = "<img src=\"./images/toomuchtraffic.png\" alt=\"Crowded\">";
+          break;
+        default:
+          markerColor = 'gray';
+      }
+      // Assuming parkingLotInfo.status_update is a timestamp in milliseconds
+      const statusUpdateTimestamp = parkingLotInfo.status_update.toMillis(); // Convert Firestore timestamp to milliseconds
+
+      const currentTimeStamp = new Date().getTime();
+      const timeDifference = currentTimeStamp - statusUpdateTimestamp;
+
+      // Convert time difference to a human-readable format (e.g., minutes ago)
+      const formattedTimeDifference = calculateTimeDifference(timeDifference);
+      function calculateTimeDifference(timeDifference) {
+        const minutes = Math.floor(timeDifference / (1000 * 60));
+        if (minutes <= 60)
+          return `${minutes} minutes ago`;
+        else if (minutes <= 1440) {
+          const hours = Math.floor(minutes / (60));
+          return `${hours} hours ago`;
+        }
+        else {
+          const days = Math.floor(minutes / (24 * 60));
+          return `${days} days ago`;
+        }
+
+      }
+      //This is the HTML for the popupSideBar
+      sidebar.innerHTML = `
     <div id = "popup">
     <div id = "headerpop">
     <div id = "x-close">
@@ -99,11 +131,14 @@ parkingLotsRef.onSnapshot((snapshot) => {
     </div>
     <br>
     <br>
+    <div id ="box">
     <div id = "statusbox">
-    <p>${statusIcon}</p>
+    <p id="statusicon">${statusIcon}</p>
+    <p id="timestamp">updated ${formattedTimeDifference}</p>
     </div>
     <div id = "statusbox1">
     <p>${parkingLotInfo.price}$</p>
+    </div>
     </div>
     <br>
     <div id="navigate">
@@ -133,10 +168,10 @@ parkingLotsRef.onSnapshot((snapshot) => {
     </div>
  `;
 
-  //This is the function for making the HTML popup.
-  document.getElementById('invisible').style.display = 'block';
-  bindPopupListeners(marker, parkingLotInfo);
-   })
+      //This is the function for making the HTML popup.
+      document.getElementById('invisible').style.display = 'block';
+      bindPopupListeners(marker, parkingLotInfo);
+    })
 
     marker.addTo(map);
   }
@@ -155,30 +190,30 @@ parkingLotsRef.onSnapshot((snapshot) => {
     saveButton.addEventListener('click', function () {
       console.log('Save button clicked for parking lot:', parkingLotInfo.parkID);
       updateStatus(parkingLotInfo.parkID);
-  
+
       //This is the code for the alert
       // Using SweetAlret2 API
       Swal.fire({
-          icon: 'success',
-          title: 'Parking Lot Updated!',
-          text: 'Thank you for updating our parking lot status.',
-          showConfirmButton: false,
-          timer: 2500  
+        icon: 'success',
+        title: 'Parking Lot Updated!',
+        text: 'Thank you for updating our parking lot status.',
+        showConfirmButton: false,
+        timer: 2500
       });
-  
+
       document.getElementById('invisible').style.display = 'none';
-  });
+    });
 
     // This is the code for the closebutton if clicked it just closes the popup
     closeButton.addEventListener('click', function () {
       document.getElementById('invisible').style.display = 'none';
     });
 
-    // This is the code for the review button if clicked it just 
+    // This is the code for the review button if clicked it just
     // Shows the survey to update parking status.
-    surveybutton.addEventListener('click',function(){
+    surveybutton.addEventListener('click', function () {
       console.log('review button has been clicked')
-      document.getElementById('survey').style.display ='block'
+      document.getElementById('survey').style.display = 'block'
     })
   }
 
@@ -195,13 +230,16 @@ parkingLotsRef.onSnapshot((snapshot) => {
       status: selectedStatus,
       status_update: new Date() // You might want to update the timestamp
     })
-    .then(() => {
-      console.log('Status updated successfully');
-    })
-    .catch((error) => {
-      console.error('Error updating status:', error);
-    });
+      .then(() => {
+        console.log('Status updated successfully');
+      })
+      .catch((error) => {
+        console.error('Error updating status:', error);
+      });
   }
 });
+
+
+
 
 
