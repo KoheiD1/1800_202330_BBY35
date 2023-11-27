@@ -93,7 +93,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
           statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
           break;
         case 'full':
-          statusIcon = "<img src=\"./images/toomuchtraffic.png\" alt=\"Crowded\">";
+          statusIcon = "<img src=\"./images/toomuchtraffic .png\" alt=\"Crowded\" style=\"width: 40px; height: 4S0px;\">";
           break;
         default:
           markerColor = 'gray';
