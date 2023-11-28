@@ -94,7 +94,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
           statusIcon = "<span class=\"material-symbols-outlined\"> directions_car</span><span class=\"material-symbols-outlined\"> directions_car</span>";
           break;
         case 'full':
-          statusIcon = "<img src=\"./images/toomuchtraffic .png\" alt=\"Crowded\" style=\"width: 40px; height: 4S0px;\">";
+          statusIcon = "<img src=\"./images/toomuchtraffic.png\" alt=\"Crowded\" style=\"width: 40px; height: 4S0px;\">";
           break;
         default:
           markerColor = 'gray';
@@ -152,15 +152,15 @@ parkingLotsRef.onSnapshot((snapshot) => {
     <div id="survey">
     <div>
         <input type="radio" id="radio-full" value="full" name="status">
-        <label for="radio-full">Full</label>
+        <label for="radio-full">At Capacity</label>
     </div>
     <div>
         <input type="radio" id="radio-half-full" value="half-full" name="status">
-        <label for="radio-half-full">Half-Full</label>
+        <label for="radio-half-full">Limited Parking Space</label>
     </div>
     <div>
         <input type="radio" id="radio-empty" value="empty" name="status">
-        <label for="radio-empty">Empty</label>
+        <label for="radio-empty">Lots of Parking Space</label>
     </div>
 
     <br>
