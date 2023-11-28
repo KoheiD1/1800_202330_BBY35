@@ -77,6 +77,7 @@ parkingLotsRef.onSnapshot((snapshot) => {
 
     marker.on('click', function () {
       marker.setIcon(L.icon({
+        
         iconUrl: `./images/parking-location-clicked.png`,
         iconSize: [40, 56],
       }));
