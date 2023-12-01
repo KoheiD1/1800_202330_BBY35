@@ -1,5 +1,6 @@
 // Function that makes the markers diffrent color depending on there
   // Parking lot status
+var clickedMarker=null;
 function createMarkerAndPopup(parkingLotInfo) {
     var markerColor;
     switch (parkingLotInfo.status.toLowerCase()) {
@@ -24,15 +25,32 @@ function createMarkerAndPopup(parkingLotInfo) {
       }),
     });
 
-    //This is the code for determining how many car icons should be displayed depending
+
     //On the status of the parkinglot.
 
     marker.on('click', function () {
-      marker.setIcon(L.icon({
-        
+      if (clickedMarker==null){
+        origin=  marker.options.icon.options.iconUrl;
+        marker.setIcon(L.icon({
+
         iconUrl: `./images/parking-location-clicked.png`,
         iconSize: [40, 56],
       }));
+      clickedMarker=marker;
+    }
+    else{
+      clickedMarker.setIcon(L.icon({
+        iconUrl: origin,
+        iconSize: [40, 56],
+      }));
+      origin=  marker.options.icon.options.iconUrl;
+      marker.setIcon(L.icon({
+        iconUrl: `./images/parking-location-clicked.png`,
+        iconSize: [40, 56],
+      }));
+      clickedMarker=marker;
+
+    }
 
 
 
