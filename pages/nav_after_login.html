@@ -33,9 +33,20 @@
           </li>
         </ul>
         <div class="d-flex">
-          <a class="btn btn-outline-success" href="../index.html" id="Logout">Logout</a>
+          <a class="btn btn-outline-success" href="../index.html" id="logout">Logout</a>
       </div>
       </div>
     </div>
   </nav>
   <!--Navbar -->
+  <script>
+  document.getElementById('logout').addEventListener('click', function() {
+    firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+      console.log("Logging out user");
+    }).catch((error) => {
+      // An error happened.
+      console.error("Logout error:", error);
+    });
+  });
+  </script>

@@ -39,12 +39,4 @@ parkingLotsRef.onSnapshot((snapshot) => {
 //------------------------------------------------
 // Call this function when the "logout" button is clicked
 //-------------------------------------------------
-document.getElementById('Logout').addEventListener('click', function() {
-    firebase.auth().signOut().then(() => {
-      // Sign-out successful.
-      console.log("Logging out user");
-    }).catch((error) => {
-      // An error happened.
-      console.error("Logout error:", error);
-    });
-  });
+
