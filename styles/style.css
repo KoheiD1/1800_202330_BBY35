@@ -109,7 +109,7 @@ display: none;
   box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* Enable vertical scrolling if needed */
   z-index: 2; /* Set the parking info container above the map */
-  padding: 10px;
+  padding-top: 10px;
 }
 
 #fixedheading {
@@ -137,17 +137,17 @@ display: none;
 }
 #box{
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 70% 30%;
 }
 #statusbox{
   grid-column: 1 /span 1;
   display: flex;
   text-align: center;
   justify-content: center;
-  margin-left: 2vw;
+  margin-left: 5px;
   position: sticky;
   font-size: 12pt;
-  width: 110%;
+  width: 100%;
 }
 
 #statusbox1{
@@ -253,6 +253,10 @@ display: none;
 }
 
 @media only screen and (max-width: 768px) {
+  .navbar{
+    z-index: 2; /* Set a higher z-index to ensure it's displayed above the map */
+    position: fixed;
+}
   #sidebar {
     width: 100%;
     float: none;
