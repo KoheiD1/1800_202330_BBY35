@@ -3,6 +3,9 @@
 const parkingLotsRef = db.collection('parkingLots');
 var clickedMarker = null;
 var origin = null;
+
+
+
 // Fetch parking lot data from Firestore and listen for real-time updates
 parkingLotsRef.onSnapshot((snapshot) => {
   // Clear existing markers
